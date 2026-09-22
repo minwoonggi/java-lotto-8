@@ -1,19 +1,29 @@
-package lotto;
+package lotto.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Lotto {
     private static final int MAX_LOTTO_NUMBER = 45;
-    private static final int MIN_LOTTO_NUMBER = 0;
+    private static final int MIN_LOTTO_NUMBER = 1;
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         validateLottoSize(numbers);
         validateLottoNumbersDuplication(numbers);
         validateLottoNumbersRange(numbers);
-        this.numbers = numbers;
+        this.numbers = new ArrayList<>(numbers);
+    }
+
+    public void arrangeNumbers() {
+        Collections.sort(numbers);
+    }
+
+    public List<Integer> getUnmodifiableNumbers() {
+        return Collections.unmodifiableList(numbers);
     }
 
     private void validateLottoSize(List<Integer> numbers) {
