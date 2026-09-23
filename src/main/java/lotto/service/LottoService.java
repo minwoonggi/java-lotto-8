@@ -1,7 +1,6 @@
 package lotto.service;
 
 import lotto.domain.Lotto;
-import lotto.domain.LottoResult;
 import lotto.util.RandomGenerator;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class LottoService {
     private List<Integer> creatNonDuplicationLottoNumbers() {
         List<Integer> lottoNumbers = new ArrayList<>();
 
-        while(lottoNumbers.size() < LOTTO_SIZE) {
+        while (lottoNumbers.size() < LOTTO_SIZE) {
             int newRandomNumber = RandomGenerator.returnRandomNumber();
             if (!lottoNumbers.contains(newRandomNumber)) {
                 lottoNumbers.add(newRandomNumber);

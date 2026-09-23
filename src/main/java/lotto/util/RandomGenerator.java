@@ -2,6 +2,7 @@ package lotto.util;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
+import static lotto.constant.LottoConstant.MAX_LOTTO_NUMBER;
 import static lotto.constant.LottoConstant.MIN_LOTTO_NUMBER;
 
 public final class RandomGenerator {
@@ -9,6 +10,6 @@ public final class RandomGenerator {
     }
 
     public static int returnRandomNumber() {
-        return Randoms.pickNumberInRange(MIN_LOTTO_NUMBER, MIN_LOTTO_NUMBER);
+        return Randoms.pickNumberInRange(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER);
     }
 }
