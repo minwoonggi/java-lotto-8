@@ -16,9 +16,10 @@ public class Lotto {
         validateLottoNumbersDuplication(numbers);
         validateLottoNumbersRange(numbers);
         this.numbers = new ArrayList<>(numbers);
+        arrangeNumbers();
     }
 
-    public void arrangeNumbers() {
+    private void arrangeNumbers() {
         Collections.sort(numbers);
     }
 
