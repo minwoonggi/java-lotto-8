@@ -35,4 +35,20 @@ class LottoTest {
 
         assertThat(lotto.getUnmodifiableNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
     }
+
+    @Test
+    void 로또와_당첨_번호_비교() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
+
+        assertThat(lotto.compareWithWinningNumbers(winningNumbers)).isEqualTo(6);
+    }
+
+    @Test
+    void 로또와_보너스_번호_비교() {
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        int bonusNumber = 7;
+
+        assertThat(lotto.isAnyMatchWithBonusNumber(bonusNumber)).isTrue();
+    }
 }

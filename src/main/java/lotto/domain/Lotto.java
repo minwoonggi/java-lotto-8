@@ -48,4 +48,21 @@ public class Lotto {
             }
         }
     }
+
+    public int compareWithWinningNumbers(List<Integer> winningNumbers) {
+        int matchCount = 0;
+        for (Integer winningNumber : winningNumbers) {
+            if (numbers.contains(winningNumber)) {
+                matchCount++;
+            }
+        }
+        return matchCount;
+    }
+
+    public boolean isAnyMatchWithBonusNumber(int bonusNumber) {
+        if (numbers.contains(bonusNumber)) {
+            return true;
+        }
+        return false;
+    }
 }
