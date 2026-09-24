@@ -9,16 +9,10 @@ import java.util.Optional;
 
 public class LottoService {
     public Lotto getNewLotto() {
-        List<Integer> LottoNumbers = creatNonDuplicationLottoNumbers();
+        List<Integer> LottoNumbers = RandomGenerator.returnRandomNumbers();
         Lotto lotto = new Lotto(LottoNumbers);
 
         return lotto;
-    }
-
-    private List<Integer> creatNonDuplicationLottoNumbers() {
-        List<Integer> lottoNumbers = RandomGenerator.returnRandomNumbers();
-
-        return lottoNumbers;
     }
 
     public LottoResult getLottoResult(List<Lotto> lottos,
