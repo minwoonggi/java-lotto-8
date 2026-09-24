@@ -28,14 +28,7 @@ public class LottoController {
     }
 
     public void run() {
-        int purchasePrice = retry(() -> {
-            String inputPurchasePrice = inputView.inputPurchasePrice();
-            ValidateInput.validateEmptyInput(inputPurchasePrice);
-            int inputPurchasePriceInt = Integer.parseInt(inputPurchasePrice);
-            ValidateInput.validatePositiveNumberInput(inputPurchasePriceInt);
-            ValidateInput.validateMultipleOfThousandsInput(inputPurchasePriceInt);
-            return inputPurchasePriceInt;
-        });
+        int purchasePrice = retry(this::extractedPurchasePrice);
         int numberToPurchaseLotto = purchasePrice / LOTTO_PRICE;
 
         List<Lotto> lottos = new ArrayList<>();
@@ -46,22 +39,10 @@ public class LottoController {
         }
 
         outputView.printLottoSize(numberToPurchaseLotto);
-        List<Integer> winningNumbers = retry(() -> {
-            String inputWinningNumbers = inputView.inputWinningNumbers();
-            List<Integer> winningNumberList = Arrays.stream(inputWinningNumbers.split(","))
-                    .map(Integer::parseInt)
-                    .toList();
-            winningNumberList.forEach(ValidateInput::validateWinningNumbersRange);
-            ValidateInput.validateWinningNumbersDuplication(winningNumberList);
-            return winningNumberList;
-        });
+        List<Integer> winningNumbers = retry(this::extractdWinningNumbers);
 
         int bonusNumber = retry(() -> {
-            String inputBonusNumber = inputView.inputBonusNumber();
-            int bonusNumberInt = Integer.parseInt(inputBonusNumber);
-            ValidateInput.validateBonusNumberRange(bonusNumberInt);
-            ValidateInput.validateBonusNumberDuplicationWithWinningNumber(bonusNumberInt, winningNumbers);
-            return bonusNumberInt;
+            return extractedBounsNumber(winningNumbers);
         });
 
         LottoResult lottoResult = lottoService.getLottoResult(lottos, winningNumbers, bonusNumber);
@@ -69,6 +50,33 @@ public class LottoController {
 
         double percentOfReturn = lottoService.getPercentOfReturn(lottoResult, purchasePrice);
         outputView.printPercentOfReturn(percentOfReturn);
+    }
+
+    private int extractedBounsNumber(List<Integer> winningNumbers) {
+        String inputBonusNumber = inputView.inputBonusNumber();
+        int bonusNumberInt = Integer.parseInt(inputBonusNumber);
+        ValidateInput.validateBonusNumberRange(bonusNumberInt);
+        ValidateInput.validateBonusNumberDuplicationWithWinningNumber(bonusNumberInt, winningNumbers);
+        return bonusNumberInt;
+    }
+
+    private List<Integer> extractdWinningNumbers() {
+        String inputWinningNumbers = inputView.inputWinningNumbers();
+        List<Integer> winningNumberList = Arrays.stream(inputWinningNumbers.split(","))
+                .map(Integer::parseInt)
+                .toList();
+        winningNumberList.forEach(ValidateInput::validateWinningNumbersRange);
+        ValidateInput.validateWinningNumbersDuplication(winningNumberList);
+        return winningNumberList;
+    }
+
+    private int extractedPurchasePrice() {
+        String inputPurchasePrice = inputView.inputPurchasePrice();
+        ValidateInput.validateEmptyInput(inputPurchasePrice);
+        int inputPurchasePriceInt = Integer.parseInt(inputPurchasePrice);
+        ValidateInput.validatePositiveNumberInput(inputPurchasePriceInt);
+        ValidateInput.validateMultipleOfThousandsInput(inputPurchasePriceInt);
+        return inputPurchasePriceInt;
     }
 
     private <T> T retry(Supplier<T> supplier) {

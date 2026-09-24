@@ -4,12 +4,8 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 import lotto.util.RandomGenerator;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static lotto.constant.LottoConstant.LOTTO_SIZE;
 
 public class LottoService {
     public Lotto getNewLotto() {
@@ -20,14 +16,7 @@ public class LottoService {
     }
 
     private List<Integer> creatNonDuplicationLottoNumbers() {
-        List<Integer> lottoNumbers = new ArrayList<>();
-
-        while (lottoNumbers.size() < LOTTO_SIZE) {
-            int newRandomNumber = RandomGenerator.returnRandomNumber();
-            if (!lottoNumbers.contains(newRandomNumber)) {
-                lottoNumbers.add(newRandomNumber);
-            }
-        }
+        List<Integer> lottoNumbers = RandomGenerator.returnRandomNumbers();
 
         return lottoNumbers;
     }
