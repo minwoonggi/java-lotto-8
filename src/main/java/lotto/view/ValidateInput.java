@@ -9,6 +9,7 @@ import static lotto.constant.LottoConstant.MIN_LOTTO_NUMBER;
 
 public class ValidateInput {
     private static final int THOUSAND = 1000;
+    private static final int WINNING_NUMBERS_SIZE = 6;
 
     public static void validateEmptyInput(String input) {
         if (input.isBlank()) {
@@ -50,6 +51,12 @@ public class ValidateInput {
     public static void validateBonusNumberDuplicationWithWinningNumber(int bonusNumber, List<Integer> winningNumbers) {
         if (winningNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호와 당첨번호 사이에 중복이 있습니다.");
+        }
+    }
+
+    public static void validateWinningNumbersSize(List<Integer> winningNumbers) {
+        if (winningNumbers.size() != WINNING_NUMBERS_SIZE) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호는 6자여야 합니다.");
         }
     }
 }

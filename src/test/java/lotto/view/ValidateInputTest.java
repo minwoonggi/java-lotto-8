@@ -59,6 +59,15 @@ public class ValidateInputTest {
     }
 
     @Test
+    void 당첨_번호는_숫자_6자로_이루어졌다() {
+        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6, 7);
+
+        assertThatThrownBy(() -> ValidateInput.validateWinningNumbersSize(winningNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("[ERROR] 당첨 번호는 6자여야 합니다.");
+    }
+
+    @Test
     @DisplayName("보너스 번호는 1 ~ 45 사이의 숫자입니다.")
     void 보너스_번호_범위_예외() {
         int bonusNumber = 46;

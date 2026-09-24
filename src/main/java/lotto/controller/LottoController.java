@@ -15,6 +15,8 @@ import java.util.function.Supplier;
 import static lotto.constant.LottoConstant.LOTTO_PRICE;
 
 public class LottoController {
+    private static final int CONTAIN_LAST_BLANK = -1;
+
     private final InputView inputView;
     private final OutputView outputView;
     private final LottoService lottoService;
@@ -39,10 +41,10 @@ public class LottoController {
         }
 
         outputView.printLottoSize(numberToPurchaseLotto);
-        List<Integer> winningNumbers = retry(this::extractdWinningNumbers);
+        List<Integer> winningNumbers = retry(this::extractedWinningNumbers);
 
         int bonusNumber = retry(() -> {
-            return extractedBounsNumber(winningNumbers);
+            return extractedBonusNumber(winningNumbers);
         });
 
         LottoResult lottoResult = lottoService.getLottoResult(lottos, winningNumbers, bonusNumber);
@@ -52,7 +54,7 @@ public class LottoController {
         outputView.printPercentOfReturn(percentOfReturn);
     }
 
-    private int extractedBounsNumber(List<Integer> winningNumbers) {
+    private int extractedBonusNumber(List<Integer> winningNumbers) {
         String inputBonusNumber = inputView.inputBonusNumber();
         int bonusNumberInt = Integer.parseInt(inputBonusNumber);
         ValidateInput.validateBonusNumberRange(bonusNumberInt);
@@ -60,12 +62,13 @@ public class LottoController {
         return bonusNumberInt;
     }
 
-    private List<Integer> extractdWinningNumbers() {
+    private List<Integer> extractedWinningNumbers() {
         String inputWinningNumbers = inputView.inputWinningNumbers();
-        List<Integer> winningNumberList = Arrays.stream(inputWinningNumbers.split(","))
+        List<Integer> winningNumberList = Arrays.stream(inputWinningNumbers.split(",", CONTAIN_LAST_BLANK))
                 .map(Integer::parseInt)
                 .toList();
         winningNumberList.forEach(ValidateInput::validateWinningNumbersRange);
+        ValidateInput.validateWinningNumbersSize(winningNumberList);
         ValidateInput.validateWinningNumbersDuplication(winningNumberList);
         return winningNumberList;
     }
