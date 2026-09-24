@@ -49,6 +49,6 @@ class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         int bonusNumber = 7;
 
-        assertThat(lotto.isAnyMatchWithBonusNumber(bonusNumber)).isTrue();
+        assertThat(lotto.isAnyMatchWithBonusNumber(bonusNumber)).isFalse();
     }
 }

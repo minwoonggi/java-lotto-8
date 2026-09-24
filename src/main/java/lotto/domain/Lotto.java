@@ -1,10 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static lotto.constant.LottoConstant.MAX_LOTTO_NUMBER;
 import static lotto.constant.LottoConstant.MIN_LOTTO_NUMBER;
@@ -64,5 +60,10 @@ public class Lotto {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }
