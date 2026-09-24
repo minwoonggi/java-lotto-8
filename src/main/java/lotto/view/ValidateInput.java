@@ -18,7 +18,7 @@ public class ValidateInput {
     }
 
     public static void validatePositiveNumberInput(int input) {
-        if (input < 0) {
+        if (input <= 0) {
             throw new IllegalArgumentException("[ERROR] 로또 구입 금액이 양수가 아닙니다.");
         }
     }
